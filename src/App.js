@@ -7,6 +7,9 @@ import './scss/style.scss'
 
 // We use those styles to show code examples, you should remove them in your application.
 import './scss/examples.scss'
+import LandingPage from './home'
+import UserRegister from './layout/register'
+import UserLayout from './layout/userLayout/userLayout'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
@@ -35,7 +38,7 @@ const App = () => {
     setColorMode(storedTheme)
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const isAuthenticated = localStorage.getItem('subscriberInformation')
+  // const isAuthenticated = localStorage.getItem('subscriberInformation')
 
   return (
     <HashRouter>
@@ -48,14 +51,18 @@ const App = () => {
       >
         <Routes>
           {/* Redirect to Login if not authenticated */}
-          <Route
+          {/* <Route
             path="*"
             element={!isAuthenticated ? <DefaultLayout /> : <Navigate to="/login" />}
-          />
+          /> */}
+          <Route path="*" element={<LandingPage />} />
+          <Route path="de" element={<DefaultLayout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/404" element={<Page404 />} />
+          <Route path="/user-registration" element={<UserRegister />} />
           <Route path="/500" element={<Page500 />} />
+          <Route path="/user-profile" element={<UserLayout />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Suspense>

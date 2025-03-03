@@ -15,6 +15,7 @@ import {
   cilStar,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react'
+import { SiBandsintown, SiOpenaccess } from 'react-icons/si'
 
 // const _nav = [
 //   {
@@ -197,6 +198,20 @@ const _nav = [
         component: CNavItem,
         name: 'User/Roles',
         to: '/user-access/access',
+        // icon: <SiOpenaccess ClassName="nav-icon" />
+        
+      },
+      {
+        component: CNavItem,
+        name: 'Create-Town',
+        to: 'create-town',
+        // icon: <SiBandsintown size={10} /> 
+        
+      },
+      {
+        component: CNavItem,
+        name: 'Create-Quarters',
+        to: 'create-quarters',
       },
     ],
   },

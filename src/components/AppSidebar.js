@@ -37,8 +37,9 @@ const AppSidebar = () => {
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand to="/">
-          <CIcon customClassName="sidebar-brand-full" icon={logo} height={32} />
-          <CIcon customClassName="sidebar-brand-narrow" icon={sygnet} height={32} />
+          <span style={{fontWeight:"bold", textDecoration:"none"}}>Ward Agent</span>
+          <CIcon customClassName="sidebar-brand-full"  height={32} />
+          <CIcon customClassName="sidebar-brand-narrow"  height={32} />
         </CSidebarBrand>
         <CCloseButton
           className="d-lg-none"
