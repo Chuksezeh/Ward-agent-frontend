@@ -10,6 +10,7 @@ import './scss/examples.scss'
 import LandingPage from './home'
 import UserRegister from './layout/register'
 import UserLayout from './layout/userLayout/userLayout'
+import KeyContactsComponent from './layout/keyContacts'
 
 // Containers
 const DefaultLayout = React.lazy(() => import('./layout/DefaultLayout'))
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/404" element={<Page404 />} />
           <Route path="/user-registration" element={<UserRegister />} />
           <Route path="/500" element={<Page500 />} />
+          <Route path="/key-contacts" element={<KeyContactsComponent />} />
           <Route path="/user-profile" element={<UserLayout />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

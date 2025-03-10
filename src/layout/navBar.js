@@ -1,9 +1,12 @@
 
 import "./navbar.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { FiArrowRight } from "react-icons/fi";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 
 
 const NavBar = (()=>{
@@ -13,12 +16,21 @@ const NavBar = (()=>{
     const toggleNav = () => {
       setIsNavActive(!isNavActive);
     };
+const navigate = useNavigate();
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
 const userInfo = localStorage.getItem("agentUserInfo");
 const userData = JSON.parse(userInfo);
 
 const handleLogOut = (()=>{
+  navigate("*")
     localStorage.removeItem("agentUserInfo")
+    handleClose();
 })
 
 const [menuActive, setMenuActive] = useState(false);
@@ -38,7 +50,7 @@ const [menuActive, setMenuActive] = useState(false);
 
 
         <>
-     <nav>
+     <nav >
        <Link to="*"  style={{cursor:"pointer", textDecoration:"none"}}> <div className="logo">  WARD AGENT  </div></Link> 
         <input type="checkbox" id="checkbox"/>
         <label for="checkbox" id="icon">
@@ -48,7 +60,7 @@ const [menuActive, setMenuActive] = useState(false);
             <li style={{cursor:"pointer"}}><Link to="*"><a  className="">Home</a> </Link></li>
             {/* <li><a >About</a></li> */}
             {
-                !userData ?  <li><Link to="/user-registration">Register</Link> </li>:  <li onClick={handleLogOut}><Link to="*">Logout</Link> </li>
+                !userData ?  <li><Link to="/user-registration">Register</Link> </li>: <li onClick={handleShow}> <Link>   Logout  </Link>  </li>
             }
 
             {
@@ -56,11 +68,24 @@ const [menuActive, setMenuActive] = useState(false);
             }
            
          
-            <li><a href="#">Contact</a></li>
+            {/* <li><a href="#">Contact</a></li> */}
         </ul>
     </nav> 
 
-
+       <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Logout</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to logout?</Modal.Body>
+        <Modal.Footer>
+          <Button style={{background:"grey", color:"white"}} onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button style={{background:"red", color:"white"}} onClick={handleLogOut}>
+            Proceed Logout
+          </Button>
+        </Modal.Footer>
+      </Modal>
     
 
         

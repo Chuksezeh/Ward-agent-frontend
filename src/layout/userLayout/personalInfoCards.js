@@ -1,9 +1,18 @@
+import { useNavigate } from "react-router-dom";
 
 const PersonalInfoCards = (()=>{
 
     const userInfo = localStorage.getItem("agentUserInfo");
     const userData = JSON.parse(userInfo);
 
+
+
+    const navigate = useNavigate();
+
+    const navigateKeyContacts = (()=>{
+
+      navigate("/key-contacts")
+    })
 
 
     return(
@@ -14,11 +23,12 @@ const PersonalInfoCards = (()=>{
       {/* Project Card */}
       <div className="card p-4 border rounded-lg shadow-md bg-white">
         <h1 className="text-xl font-bold">Basic Information</h1>
-        <p><strong>Full name:</strong>  {userData.firstName}  {userData.lastName} </p>
+        <p><strong>Full name:</strong> {userData.nameTitle} {userData.firstName}  {userData.lastName} </p>
         <p><strong>Email:</strong> {userData.email}  </p>
         <p><strong>State:</strong>   {userData.state} </p>
         <p><strong>Local government:</strong>   {userData.lga} </p>
         <p><strong>Ward:</strong>  {userData.ward} </p>
+        <p><strong>Access role:</strong>  {userData.accessRole} </p>
         {/* <p><strong>Town:</strong> </p> */}
         <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
           <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: "84%" }}></div>
@@ -27,8 +37,18 @@ const PersonalInfoCards = (()=>{
 
       {/* Meetings Calendar */}
       <div className="card p-4 border rounded-lg shadow-md bg-white">
-        <h2 className="text-lg font-bold">Upcoming Meetings</h2>
-        <p>3 calls • Thu, 11</p>
+        <h2 className="text-lg font-bold">Key Contacts</h2>
+        <p>Last updated • Thu, 11</p>
+
+        <p>
+        An access-based contact directory  that displays contact information based on the
+         user's level of access (LGA, town, etc.), organizing entries alphabetically.
+        </p>
+
+        <p>
+         
+        <button class="button-46" role="button" onClick={navigateKeyContacts}>View contacts</button>
+        </p>
       </div>
 
       {/* Project Roadmap */}

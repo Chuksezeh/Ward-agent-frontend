@@ -32,6 +32,7 @@ const UserRegister = (() => {
   const [showInvalid, setShowInvalid] = useState(false);
   const [invalidText, setInvalidText] = useState("")
   const [gender, setGender] = useState("");
+  const [registerPending, setRegisterPending] = useState(true);
 
   const password = useRef({});
 
@@ -64,8 +65,11 @@ const UserRegister = (() => {
     const datas = {
       ...data,
       state: stateName.name,
-      gender: gender
+      gender: gender,
+      accessRole: "General"
     }
+
+    setRegisterPending(true)
 
     console.log("SendingData..", datas)
 
@@ -78,12 +82,14 @@ const UserRegister = (() => {
         setTimeout(() => {
           navigate("*")
         }, 3000)
+        setRegisterPending(false);
       })
       .catch(err => {
         console.log('err', err);
         const response = err?.response?.data
         setInvalidText(response.message)
-        setShowInvalid(true)
+        setShowInvalid(true);
+        setRegisterPending(false);
 
       });
   };
@@ -116,6 +122,7 @@ const UserRegister = (() => {
             <div className="">
               <span style={{ color: 'red' }}>*</span> Indicates required question
               <form onSubmit={handleSubmit((data, event) => {
+            
                 console.log('seedataNow', data);
                 handleSubmitRegistration(data);
               })}>
@@ -159,14 +166,27 @@ const UserRegister = (() => {
                 <div className="row clearfix">
                   <div className="col_half">
                     <label>Individual title/position</label>
-                    <div className="input_field">
 
-                      <span><i aria-hidden="true" className="mtyTopIcon">  <MdTitle size={20} /></i></span>
 
-                      <input type="text" name="name" placeholder="Dr./Chief/Mr./Mrs./Miss..."
-                        {...register('nameTitle')}
-                      />
+                    <div className="input_field select_option">
+                      <select {...register('nameTitle')}>
+                      <option disabled>Select title</option>
+                        <option>Mr.</option>
+                        <option>Mrs.</option>
+                        <option>Miss.</option>
+                        <option>Master.</option>
+                        <option>Prof.</option>
+                        <option>Dr.</option>
+                        <option>Bar.</option>
+                        <option>Chief.</option>
+                        <option>Comrade.</option>
+                        <option>Engr.</option>
+                        <option>Others</option>
+
+                      </select>
+                      <div className="select_arrow"></div>
                     </div>
+                  
                   </div>
                   <div className="col_half">
                     <label>Email address   <span style={{ color: "red" }}>*</span></label>
@@ -228,9 +248,7 @@ const UserRegister = (() => {
                         {...register('password', {
                           required: 'Password is required',
                           maxLength: {},
-                        })}
-
-                      />
+                        })}/>
 
                     </div>
                     <span className="cum-error">{errors.password?.message}</span>
@@ -241,7 +259,7 @@ const UserRegister = (() => {
 
                       <span><i aria-hidden="true" className="mtyTopIcon" >  <FaWhatsapp size={20} />
                       </i></span>
-                      <input type="text" name="password_repeat" placeholder="Confirm password"
+                      <input type="password" name="password_repeat" placeholder="Confirm password"
                         {...register("password_repeat", {
                           required: 'Confirm password',
                           validate: value => value === password.current || "The password does not match"
@@ -368,8 +386,14 @@ const UserRegister = (() => {
                     </div>
                   </label>
                 }
+{/* {
+  registerPending ? <span className="loader"></span> :  */}
+  
+  <input className="button" type="submit" value="Register" />
+{/* } */}
+                  
 
-                <input className="button" type="submit" value="Register" />
+                
               </form>
             </div>
           </div>
